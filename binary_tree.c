@@ -3,7 +3,7 @@
 Alex Voitik
 Compiler Construction
 Stack of Binary Trees
-Last Edit: Sun, Sept. 11th
+Last Edit: Sun, Sept. 15th
 
 Stack and Binary Tree Functions based on code taken from
         - http://www.cprogramming.com/tutorial/c/lesson18.html
@@ -49,7 +49,7 @@ void push(void);
 int  pop(void);
 void clearBuffer(void);
 treeNode * Insert(treeNode *node,int data);
-int search(int key, treeNode *leaf);
+treeNode * search(int key, treeNode *leaf);
 
 //main
 int main(){
@@ -93,13 +93,15 @@ int main(){
                        //loops through all the trees to find the item
                        for(i; i >= 0; i--){
                                 if(search(item, s.stk[i].bst)){
-                                     printf("Item Found in tree %c\n", s.stk[i].name);
+                                     printf("Item Found in tree %c\n\n", s.stk[i].name);
                                      found = 1;
+                                     break;
                                 }      
                        }
                        if(!found){
                                 printf("Item not found\n");
                        }
+                       //the pointer to the value you are searching for is held in (s.stk[i].bst) -> data
                        break;
                 
             default  : printf("Not Recognized\n\n"); break;
@@ -179,12 +181,12 @@ int pop (){
     return(num);
 }
 
-//Searches a tree for an element. If found, 1 is returned.
+//Searches a tree for an element. If found, a pointer to the value is returned.
 //if not found, 0 is returned.
-int search(int key, treeNode *leaf){
+treeNode * search(int key, treeNode *leaf){
   if( leaf != 0 ){
       if(key==leaf->data){
-          return 1;
+          return leaf;
       }
       else if(key<leaf->data){
           return search(key, leaf->left);
